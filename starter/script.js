@@ -1,22 +1,21 @@
-// function to display the current date
+var currentHour = dayjs().format('H');
+console.log(currentHour);
 
+// function to display the current date
 function setCurrentDay() {
-    const currentDate = dayjs().format("dddd, MMMM DD, YYYY");
+    const currentDayStr = dayjs().format("dddd, MMMM DD, YYYY");
     const currentDayEl = $("#currentDay");
-    currentDayEl.text(currentDate);
+    currentDayEl.text(currentDayStr);
 }
 
-setCurrentDay();
-
-// function create the timetable
-
-function setTimetable() {
+// function to create the timetable
+function initialisePage() {
+    setCurrentDay();
     const timetableEl = $("#timetable");
     for (let i = 9; i <= 18; i++) {
         timetableEl.append(createRow(i));
     }
 }
-setTimetable();
 
 // dynamically create new row and columns 
 function createRow(rowHour, savedText) {
@@ -34,15 +33,52 @@ function createRow(rowHour, savedText) {
     });
 
     // retrieve the data from local storage + display in text area
-    var savedText = localStorage.getItem("savedText" + rowHour, newText);
+    var savedText = localStorage.getItem("savedText" + rowHour);
     if (savedText) {
         textCol.val(savedText);
     }
 
+    // add classes to text col to identify whether past, present, future
+    if (rowHour < currentHour) {
+        textCol.addClass("past");
+    } else if (rowHour == currentHour) {
+        textCol.addClass("present");
+    } else {
+        textCol.addClass("future");
+    }
 
+    return newRow
 }
 
 createRow();
+
+function formatHourNumber(hourNumber) {
+    if (hourNumber === undefined || hourNumber === null) {
+        return "Invalid hour number";
+    }
+    var hourString = "";
+    if (hourNumber > 12) {
+        hourNumber = hourNumber - 12;
+        hourString = hourNumber.toString();
+        hourString = hourString + "PM";
+
+    } else if (hourNumber == 12) {
+        hourString = "12PM";
+
+    } else if (hourNumber == 0) {
+        hourString = "12AM";
+
+    } else {
+        hourString = hourNumber.toString();
+        hourString = hourString + "AM";
+    }
+
+    return hourString;
+}
+
+$(document).ready(function() {
+    initialisePage();
+})
 
 // function to change timeblock colors according to time
 
