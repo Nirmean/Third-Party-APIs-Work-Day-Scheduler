@@ -21,8 +21,8 @@ function initialisePage() {
 function createRow(rowHour, savedText) {
     var newRow = $("<div>").addClass("row");
     var hourCol = $("<div>").addClass("col hour").text(formatHourNumber(rowHour));
-    var textCol = $("<textarea>").addClass("col text-area").text(savedText);
-    var buttonCol = $("<button>").addClass("col save-button");
+    var textCol = $("<textarea>").addClass("col time-block").text(savedText);
+    var buttonCol = $("<button>").addClass("col saveBtn").text("Save");
     newRow.append(hourCol, textCol, buttonCol);
 
     // add event listener to button column,
