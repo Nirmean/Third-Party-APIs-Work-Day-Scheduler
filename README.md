@@ -5,7 +5,7 @@
 A simple calendar application that allows you save events, appointments and meetings during your busy workday. Easily keep track of the hour of the day with color coded rows. Grey indicates a time in the past, red is the present time, and green are future time slots.
 
 ## Solution URL:
-https://nirmean.github.io/Calendar-application/
+https://nirmean.github.io/Third-Party-APIs-Work-Day-Scheduler/
 
 ## The Task
 
